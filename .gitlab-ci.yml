@@ -1,0 +1,33 @@
+cache:
+  paths:
+    - .m2/repository
+
+stages:
+  - build
+  - deploy
+
+build:
+  stage: build
+  artifacts:
+    paths:
+      - target
+  image: maven:3-jdk-11
+  script:
+    - mvn -Dmaven.repo.local=$CI_PROJECT_DIR/.m2/repository --batch-mode --errors --no-transfer-progress clean verify site
+  allow_failure: true
+  only:
+    - master
+
+pages:
+  stage: deploy
+  dependencies:
+    - build
+  script:
+    - echo "Preparing project pages..."
+    - mkdir public
+    - cp -rv target/site/* public
+  artifacts:
+    paths:
+      - public
+  only:
+    - master
