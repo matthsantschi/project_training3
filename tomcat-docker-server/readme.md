@@ -13,6 +13,7 @@ the container is created. To relunch them, you have to destroy the containers
 wait some seconds, you can observe the redeployment in the console.
 
 ## hints
-* `docker ps` shows the running 
+* `docker ps` shows the running containers
 * `docker container ls` shows genereted containers
-* `docker container prune | docker container rm NAME` delete container
+* `docker container prune | docker container rm NAME` 
+delete all container | delete one container
