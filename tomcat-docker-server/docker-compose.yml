@@ -1,0 +1,25 @@
+version: '3.8'
+
+services:
+
+  db:
+    image: postgres
+    restart: on-failure
+    container_name: academia-db
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=academia
+    volumes:
+      - ../src/etc/:/docker-entrypoint-initdb.d/
+    ports:
+      - 5432:5432
+
+  tomcat:
+    build:
+      context: .
+    container_name: academia-tomcat
+    ports:
+      - 8080:8080
+    volumes:
+      - ../target/academia-04-1.0-SNAPSHOT.war:/usr/local/tomcat/webapps/academia.war
